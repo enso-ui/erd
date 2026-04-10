@@ -1,6 +1,5 @@
 <script>
 import { debounce } from 'lodash';
-import { ResizeSensor } from 'css-element-queries';
 
 export default {
     name: 'Erd',
@@ -19,13 +18,17 @@ export default {
     }),
 
     mounted() {
-        this.erd = new ResizeSensor(this.$el, debounce(el => {
-            this.width = el.width;
-            this.height = el.height;
-        }), this.debounce);
+        const updateSize = debounce(([entry]) => {
+            this.width = entry.contentRect.width;
+            this.height = entry.contentRect.height;
+        }, this.debounce);
+
+        this.erd = new ResizeObserver(updateSize);
+        this.erd.observe(this.$el);
     },
 
     beforeUnmount() {
+        this.erd?.disconnect();
         this.erd = null;
     },
 
