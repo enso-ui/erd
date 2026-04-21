@@ -1,7 +1,7 @@
 {
   "name": "@enso-ui/erd",
   "version": "3.1.1",
-  "description": "Element Resize Detector",
+  "description": "Resize-aware renderless slot component for Vue",
   "main": "src/Erd.vue",
   "repository": {
     "type": "git",
